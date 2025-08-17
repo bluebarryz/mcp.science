@@ -1481,6 +1481,7 @@ dependencies = [
     { name = "mcp", extra = ["cli"] },
     { name = "mp-api" },
     { name = "pymatgen" },
+    { name = "python-dotenv" },
 ]
 
 [package.metadata]
@@ -1493,6 +1494,7 @@ requires-dist = [
     { name = "mcp", extras = ["cli"], specifier = ">=1.6.0" },
     { name = "mp-api", specifier = ">=0.45.3" },
     { name = "pymatgen", specifier = ">=2025.3.10" },
+    { name = "python-dotenv", specifier = ">=1.1.0" },
 ]
 
 [[package]]
