@@ -106,11 +106,18 @@ This server is designed to be used with the MCP (Model Context Protocol) framewo
 
 #### Installation
 
-(Navigate to the root folder of your local clone before taking the following steps.)
+Navigate to the folder `servers/materials-project`.
+
+##### Prerequisites:
+- Install Visual Studio Build Tools: https://visualstudio.microsoft.com/downloads/?q=build+tools
+- Install Rust: https://www.rust-lang.org/tools/install
+
 
 ##### Using `uv` (Recommended)
 
 [`uv`](https://github.com/astral-sh/uv) is a fast, reliable Python package installer and resolver. It's recommended for managing dependencies:
+
+From inside the `servers/materials-project` folder, run the following commands:
 
 ```bash
 # Create a Python environment
@@ -121,79 +128,17 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 uv sync
 ```
 
-#### Configuration
+#### Run the server
 
-Depending on which MCP client you're using, you'll need to configure it to use this server:
+First, create a `.env` file isnide the `servers/materials-project` folder and set `MP_API_KEY`.
 
-**For Claude Desktop:**
+`cd` into the `servers/materials-project/src` folder. From this `src` folder, run 
+> `python -m materials_project`
 
-Edit your Claude Desktop config file (typically at `~/Library/Application Support/Claude/claude_desktop_config.json` on macOS or `%APPDATA%\Claude\claude_desktop_config.json` on Windows):
+You should now see `INFO:     Uvicorn running on http://127.0.0.1:8002`.
 
-##### Using Local Directory (Current Method)
-
-```json
-{
-  "mcpServers": {
-    "materials_project": {
-      "command": "uv",
-      "args": [
-        "--directory",
-        "/path/to/mcp-servers/servers/materials_project/",
-        "run",
-        "mcp-materials-project"
-      ],
-      "env": {
-        "MP_API_KEY": "your_materials_project_api_key_here"
-      }
-    }
-  }
-}
-```
-
-##### Using PyPI Package (Future Method)
-
-In the future, if/when a PyPI package becomes available, you can simplify installation and configuration:
-
-```json
-{
-  "mcpServers": {
-    "materials_project": {
-      "command": "uvx",
-      "args": [
-        "mcp_materials_project"
-      ],
-      "env": {
-        "MP_API_KEY": "your_materials_project_api_key_here"
-      }
-    }
-  }
-}
-```
-
-or Fetch and run from remote repository
-
-```json
-{
-  "mcpServers": {
-    "materials_project": {
-      "command": "uvx",
-      "args": [
-        "--from",
-        "git+https://github.com/pathintegral-institute/mcp.science#subdirectory=servers/materials-project",
-        "mcp-materials-project"
-      ],
-      "env": {
-        "MP_API_KEY": "YOUR_MP_API_KEY"
-      }
-    }
-  }
-}
-```
-
-**For Other MCP Clients:**
-
-For other MCP clients like MCP CLI or custom implementations, refer to their specific documentation for how to register an MCP server. You'll always need to ensure the `MP_API_KEY` environment variable is properly set for the server process.
-
+NOTE: The port was set to 8002 by default in [servers/materials-project/src/materials_project/server.py](servers/materials-project/src/materials_project/server.py). Please change this if needed.
+> `mcp = FastMCP("mcp-materials-project", port=8002)`
 
 ## Contributors
 
